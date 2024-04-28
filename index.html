@@ -17,15 +17,18 @@
         <input
             type="text"
             id="textInput1"
-            placeholder="Enter meme text here" />
+            placeholder="Enter meme text here"
+            onchange="generateMeme()" />
         <input
             type="text"
             id="textInput2"
-            placeholder="Enter meme text here" />
+            placeholder="Enter meme text here"
+            onchange="generateMeme()" />
         <input
             type="color"
             id="colorInput"
-            value="#000000" />
+            value="#000000"
+            onchange="generateMeme()" />
         <select id="fontInput">
             <option value="Arial">Arial</option>
             <option value="Comic Sans MS">Comic Sans MS</option>
@@ -36,7 +39,8 @@
             id="fontSizeInput"
             min="10"
             max="100"
-            value="50" />
+            value="50"
+            onchange="generateMeme()" />
         <button>Save Meme</button>
         <canvas 
             id="memeCanvas">
