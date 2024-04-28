@@ -1,8 +1,47 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
+        <title>Meme Generator - Customize</title>
     </head>
+
     <body>
-        Anything in there to make it like work
+        <h1>Customize Your Meme</h1>
+        <label for="userImageInput" class="custom-file-upload"
+            >Use Your Own Image</label
+        >
+        <input
+            type="file"
+            id="userImageInput"
+            accept="image/*" />
+        <input
+            type="text"
+            id="textInput1"
+            placeholder="Enter meme text here" />
+        <input
+            type="text"
+            id="textInput2"
+            placeholder="Enter meme text here" />
+        <input
+            type="color"
+            id="colorInput"
+            value="#000000" />
+        <select id="fontInput">
+            <option value="Arial">Arial</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Courier New">Courier New</option>
+        </select>
+        <input
+            type="number"
+            id="fontSizeInput"
+            min="10"
+            max="100"
+            value="50" />
+        <button>Save Meme</button>
+        <canvas 
+            id="memeCanvas">
+        </canvas>
+        <button onclick="window.location.href='index.html'">
+            Back to Templates
+        </button>
     </body>
 </html>
