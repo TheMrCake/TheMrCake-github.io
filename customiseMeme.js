@@ -26,18 +26,12 @@ function loadUserImage() {
 }
 
 function loadTemplate(src) {
-    // Assign the source of the selected template to the global variable
-    const img = new Image();
-    img.onload = function() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        selectedImgSrc = src;
-        generateMeme(); // Call generateMeme after the image is drawn
-    };
-    img.src = src;
+    selectedImgSrc = src;
+    generateMeme();
+
 }
 
 function generateMeme() {
-    console.log("generating meme");
     const img = new Image();
     img.onload = function () {
         // Set max size by scale.
@@ -47,6 +41,19 @@ function generateMeme() {
         canvas.width = width;
         canvas.height = height;
         ctx.drawImage(img, 0, 0, width, height);
+        drawText();
     };
-    img.src = document.getElementById('userImageInput').files.length > 0 ? URL.createObjectURL(document.getElementById('userImageInput').files[0]) : selectedImgSrc;
+    img.src = selectedImgSrc;
+}
+
+function drawText() {
+    var font = document.getElementById('fontSizeInput').value + 'px ' + document.getElementById('fontInput').value;
+    // Load font and font size asynchronously
+    document.fonts.load(font).then(function() {
+        // Then set the context font and textbox positions.
+        ctx.font = font;
+        ctx.fillStyle = document.getElementById('colorInput').value;
+        ctx.fillText(document.getElementById('textInput1').value, textX1, textY1);
+        ctx.fillText(document.getElementById('textInput2').value, textX2, textY2);
+    });
 }
