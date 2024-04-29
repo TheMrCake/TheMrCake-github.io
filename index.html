@@ -2,12 +2,47 @@
 <html>
     <head>
         <link rel="stylesheet" href="styles.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.min.js"></script>
         <title>Welcome to Automeme!</title>
     </head>
 
     <body>
         <h1>Select a Template</h1>
-        <div id="gallery">Temp</div>
+        <div id="gallery"></div>
         <button>Choose your own Image</button>
+
+
+        <!-- Script to load yaml templates into gallery -->
+        <script>
+            // List of YAML files
+            var yamlFiles = [
+                "template1.yaml",
+            ];
+
+            // For every file in templates folder...
+            yamlFiles.forEach(async function (file) {
+                console.log(file);
+                // Fetch yaml file
+                let response = await fetch("template/" + file);
+                // Conver to text
+                let data = await response.text();
+                // Save data into template
+                let template = jsyaml.load(data);
+                // New image element
+                let imgElement = document.createElement("img");
+                imgElement.src = template.imageFile;
+                imgElement.alt = template.templateName;
+                imgElement.className = "gallery-image";
+                // Onclick, load customise meme page
+                imgElement.addEventListener("click", function () {
+                    window.location.href = 'customize.html?template=' + encodeURIComponent(src);
+                });
+                // Make image element a child of gallery
+                document
+                    .getElementById("gallery")
+                    .appendChild(imgElement);
+            });
+
+        </script>
     </body>
 </html>
