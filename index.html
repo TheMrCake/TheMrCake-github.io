@@ -11,7 +11,6 @@
         <div id="gallery"></div>
         <button>Choose your own Image</button>
 
-
         <!-- Script to load yaml templates into gallery -->
         <script>
             // List of YAML files
@@ -27,32 +26,11 @@
 
             ];
 
-            // For every file in templates folder...
-            /*yamlFiles.forEach(async function (file) {
-                console.log(file);
-                // Fetch yaml file
-                let response = await fetch('template/' + file);
-                // Conver to text
-                let data = await response.text();
-                // Save data into template
-                let template = jsyaml.load(data);
-                // New image element
-                let imgElement = document.createElement('img');
-                imgElement.src = template.imageFile;
-                imgElement.alt = template.templateName;
-                imgElement.className = 'gallery-image';
-                // Onclick, load customise meme page
-                imgElement.addEventListener('click', function () {
-                    window.location.href = 'customize.html?template=' + encodeURIComponent(src);
-                });
-                // Make image element a child of gallery
-                document
-                    .getElementById('gallery')
-                    .appendChild(imgElement);
-            });
-            */
+            // For each file in image file names
             imgFiles.forEach(function (fileName) {
                 let imgSrc = 'img/' + fileName;
+                let imgContainer = document.createElement('div');
+                imgContainer.className = 'image-container';
                 // New image element
                 let imgElement = document.createElement('img');
                 imgElement.src = imgSrc;
@@ -61,6 +39,7 @@
                 imgElement.addEventListener('click', function () {
                     window.location.href = 'customiseMeme.html?imgSrc=' + imgSrc;
                 });
+                imgContainer.appendChild(imgElement);
                 // Make image element a child of gallery
                 document
                     .getElementById('gallery')
