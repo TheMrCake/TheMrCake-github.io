@@ -43,7 +43,10 @@
             onchange="generateMeme()" />
         <button onclick="saveMeme()">Save Meme</button>
         <canvas 
-            id="memeCanvas">
+            id="memeCanvas"
+            onmousedown="startDrag(event)"
+            onmousemove="dragText(event)"
+            onmouseup="stopDrag()">
         </canvas>
         <button onclick="window.location.href='index.html'">
             Back to Templates

@@ -1,9 +1,11 @@
 const canvas = document.getElementById('memeCanvas');
 const ctx = canvas.getContext('2d');
 
-var selectedImgSrc;
+let selectedImgSrc;
 
-let dragging = false;
+let isDragging = false;
+let currentText;
+
 let textX1 = 50,
     textY1 = 50;
 let textX2 = 50,
@@ -72,4 +74,63 @@ function saveMeme() {
         link.href = URL.createObjectURL(blob);
         link.click();
     });
+}
+
+// Begin dragging and pass onclick event to function
+function startDrag(e) {
+    // Get x, y coords of cursour relative to canvas
+    let rect = canvas.getBoundingClientRect();
+    let x = e.clientX - rect.left;
+    let y = e.clientY - rect.top;
+
+    let textBox1Width = ctx.measureText(document.getElementById('textInput1').value).width;
+    let textBox2Width = ctx.measureText(document.getElementById('textInput2').value).width;
+
+    let textBoxHeight = parseInt(document.getElementById('fontSizeInput').value);
+
+    // If cursor is over textbox1, set that to current textbox
+    if (x >= textX1 && x <= textX1 + textBox1Width && y >= textY1 - textBoxHeight && y <= textY1) {
+        console.log("start dragging");
+        isDragging = true;
+        currentText = 'text1';
+    } // Otherwise, if cursor is over textbox 2, set that to current textbox
+    else if (x >= textX2 && x <= textX2 + textBox2Width && y >= textY2 - textBoxHeight && y <= textY2) {
+        console.log("start dragging");
+        isDragging = true;
+        currentText = 'text2';
+    }
+}
+
+// Keep dragging by updating textbox to cursor position
+function dragText(e) {
+    // If currently dragging
+    if (isDragging) {
+        // Get cursor relative to canvas position
+        let rect = canvas.getBoundingClientRect();
+        let x = e.clientX - rect.left;
+        let y = e.clientY - rect.top;
+
+        let textBox1Width = ctx.measureText(document.getElementById('textInput1').value).width;
+        let textBox2Width = ctx.measureText(document.getElementById('textInput2').value).width;
+
+        let textBoxHeight = parseInt(document.getElementById('fontSizeInput').value);
+
+        // Clamp current textbox position to inside the visible canvas, while following the cursor
+        if (currentText === 'text1') {
+            textX1 = Math.min(Math.max(x, 0), canvas.width - textBox1Width);
+            textY1 = Math.min(Math.max(y, textBoxHeight), canvas.height);
+        }
+        else if (currentText === 'text2') {
+            textX2 = Math.min(Math.max(x, 0), canvas.width - textBox2Width);
+            textY2 = Math.min(Math.max(y, textBoxHeight), canvas.height);
+        }
+        // Reload meme.
+        generateMeme();
+    }
+}
+
+// Stop dragging, I mean it's kinda obvious
+function stopDrag() {
+    isDragging = false;
+    console.log('stop dragging');
 }
