@@ -9,6 +9,8 @@ let textX1 = 50,
 let textX2 = 50,
     textY2 = 100;
 
+
+// Load User enetered background image
 function loadUserImage() {
     // Get User input file
     var file = document.getElementById('userImageInput').files[0];
@@ -25,12 +27,14 @@ function loadUserImage() {
     }
 }
 
+// Load template from example
 function loadTemplate(src) {
     selectedImgSrc = src;
     generateMeme();
 
 }
 
+// Reload meme
 function generateMeme() {
     const img = new Image();
     img.onload = function () {
@@ -46,6 +50,7 @@ function generateMeme() {
     img.src = selectedImgSrc;
 }
 
+// Reload meme text
 function drawText() {
     var font = document.getElementById('fontSizeInput').value + 'px ' + document.getElementById('fontInput').value;
     // Load font and font size asynchronously
@@ -55,5 +60,16 @@ function drawText() {
         ctx.fillStyle = document.getElementById('colorInput').value;
         ctx.fillText(document.getElementById('textInput1').value, textX1, textY1);
         ctx.fillText(document.getElementById('textInput2').value, textX2, textY2);
+    });
+}
+
+// Save meme to user's device
+function saveMeme() {
+    // Creates data blob with callback to download as png
+    canvas.toBlob(function(blob) {
+        var link = document.createElement('a');
+        link.download = 'meme.png';
+        link.href = URL.createObjectURL(blob);
+        link.click();
     });
 }

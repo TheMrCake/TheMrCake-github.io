@@ -29,7 +29,7 @@
             id="colorInput"
             value="#000000"
             onchange="generateMeme()" />
-        <select id="fontInput">
+        <select id="fontInput" onchange="generateMeme()">
             <option value="Arial">Arial</option>
             <option value="Comic Sans MS">Comic Sans MS</option>
             <option value="Courier New">Courier New</option>
@@ -41,7 +41,7 @@
             max="100"
             value="50"
             onchange="generateMeme()" />
-        <button>Save Meme</button>
+        <button onclick="saveMeme()">Save Meme</button>
         <canvas 
             id="memeCanvas">
         </canvas>
