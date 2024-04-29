@@ -1,7 +1,8 @@
 const canvas = document.getElementById('memeCanvas');
 const ctx = canvas.getContext('2d');
 
-let selectedImgSrc;
+const urlParams = new URLSearchParams(window.location.search);
+let selectedImgSrc = urlParams.get('imgSrc');
 
 let isDragging = false;
 let currentText;
@@ -10,6 +11,8 @@ let textX1 = 50,
     textY1 = 50;
 let textX2 = 50,
     textY2 = 100;
+
+generateMeme();
 
 
 // Load User enetered background image

@@ -15,34 +15,57 @@
         <!-- Script to load yaml templates into gallery -->
         <script>
             // List of YAML files
-            var yamlFiles = [
-                "template1.yaml",
+            var imgFiles = [
+                "buffDoge.png",
+                "catYelling.png",
+                "confusedCat.png",
+                "evilKermit.png",
+                "hiddenCat.png",
+                "mrIncredible.png",
+                "pedroSmile.png",
+                "winniePooh.png"
+
             ];
 
             // For every file in templates folder...
-            yamlFiles.forEach(async function (file) {
+            /*yamlFiles.forEach(async function (file) {
                 console.log(file);
                 // Fetch yaml file
-                let response = await fetch("template/" + file);
+                let response = await fetch('template/' + file);
                 // Conver to text
                 let data = await response.text();
                 // Save data into template
                 let template = jsyaml.load(data);
                 // New image element
-                let imgElement = document.createElement("img");
+                let imgElement = document.createElement('img');
                 imgElement.src = template.imageFile;
                 imgElement.alt = template.templateName;
-                imgElement.className = "gallery-image";
+                imgElement.className = 'gallery-image';
                 // Onclick, load customise meme page
-                imgElement.addEventListener("click", function () {
+                imgElement.addEventListener('click', function () {
                     window.location.href = 'customize.html?template=' + encodeURIComponent(src);
                 });
                 // Make image element a child of gallery
                 document
-                    .getElementById("gallery")
+                    .getElementById('gallery')
                     .appendChild(imgElement);
             });
-
+            */
+            imgFiles.forEach(function (fileName) {
+                let imgSrc = 'img/' + fileName;
+                // New image element
+                let imgElement = document.createElement('img');
+                imgElement.src = imgSrc;
+                imgElement.className = 'gallery-image';
+                // Onclick, load customise meme page
+                imgElement.addEventListener('click', function () {
+                    window.location.href = 'customiseMeme.html?imgSrc=' + imgSrc;
+                });
+                // Make image element a child of gallery
+                document
+                    .getElementById('gallery')
+                    .appendChild(imgElement);
+            });
         </script>
     </body>
 </html>
