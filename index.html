@@ -3,14 +3,21 @@
     <head>
         <link rel="stylesheet" href="styles.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.14.0/js-yaml.min.js"></script>
-        <title>Welcome to Automeme!</title>
+        <title>Automeme</title>
     </head>
 
     <body>
-        <h1>Select a Template</h1>
+        <div id="section0">
+            <h1>Welcome to Automeme!</h1>
+        </div>
+        <div id="section1">
+            <h2>Select a Meme template to edit from below or upload your own!</h2>
+        </div>
+        <hr class="rounded">
         <div id="gallery"></div>
-        <button>Choose your own Image</button>
-
+        <div id="choose-image-container">
+            <button id="choose-image">Choose your own Image</button>
+        </div>
         <!-- Script to load yaml templates into gallery -->
         <script>
             // List of YAML files
