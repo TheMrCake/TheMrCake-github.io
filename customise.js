@@ -1,8 +1,10 @@
-const canvas = document.getElementById('memeCanvas');
-const ctx = canvas.getContext('2d');
-
+// Get imgSrc from query content
 const urlParams = new URLSearchParams(window.location.search);
 let selectedImgSrc = urlParams.get('imgSrc');
+
+// Init variables
+const canvas = document.getElementById('meme-canvas');
+const ctx = canvas.getContext('2d');
 
 let isDragging = false;
 let currentText;
@@ -14,11 +16,10 @@ let textX2 = 50,
 
 generateMeme();
 
-
 // Load User enetered background image
 function loadUserImage() {
     // Get User input file
-    var file = document.getElementById('userImageInput').files[0];
+    var file = document.getElementById('user-image-input').files[0];
     // If file exists...
     if (file) {
         // Create new file reader
@@ -57,14 +58,14 @@ function generateMeme() {
 
 // Reload meme text
 function drawText() {
-    var font = document.getElementById('fontSizeInput').value + 'px ' + document.getElementById('fontInput').value;
+    var font = document.getElementById('font-size-input').value + 'px ' + document.getElementById('font-input').value;
     // Load font and font size asynchronously
     document.fonts.load(font).then(function() {
         // Then set the context font and textbox positions.
         ctx.font = font;
-        ctx.fillStyle = document.getElementById('colorInput').value;
-        ctx.fillText(document.getElementById('textInput1').value, textX1, textY1);
-        ctx.fillText(document.getElementById('textInput2').value, textX2, textY2);
+        ctx.fillStyle = document.getElementById('color-input').value;
+        ctx.fillText(document.getElementById('text-input1').value, textX1, textY1);
+        ctx.fillText(document.getElementById('text-input2').value, textX2, textY2);
     });
 }
 
@@ -86,19 +87,17 @@ function startDrag(e) {
     let x = e.clientX - rect.left;
     let y = e.clientY - rect.top;
 
-    let textBox1Width = ctx.measureText(document.getElementById('textInput1').value).width;
-    let textBox2Width = ctx.measureText(document.getElementById('textInput2').value).width;
+    let textBox1Width = ctx.measureText(document.getElementById('text-input1').value).width;
+    let textBox2Width = ctx.measureText(document.getElementById('text-input2').value).width;
 
-    let textBoxHeight = parseInt(document.getElementById('fontSizeInput').value);
+    let textBoxHeight = parseInt(document.getElementById('font-size-input').value);
 
     // If cursor is over textbox1, set that to current textbox
     if (x >= textX1 && x <= textX1 + textBox1Width && y >= textY1 - textBoxHeight && y <= textY1) {
-        console.log("start dragging");
         isDragging = true;
         currentText = 'text1';
     } // Otherwise, if cursor is over textbox 2, set that to current textbox
     else if (x >= textX2 && x <= textX2 + textBox2Width && y >= textY2 - textBoxHeight && y <= textY2) {
-        console.log("start dragging");
         isDragging = true;
         currentText = 'text2';
     }
@@ -113,10 +112,10 @@ function dragText(e) {
         let x = e.clientX - rect.left;
         let y = e.clientY - rect.top;
 
-        let textBox1Width = ctx.measureText(document.getElementById('textInput1').value).width;
-        let textBox2Width = ctx.measureText(document.getElementById('textInput2').value).width;
+        let textBox1Width = ctx.measureText(document.getElementById('text-input1').value).width;
+        let textBox2Width = ctx.measureText(document.getElementById('text-input2').value).width;
 
-        let textBoxHeight = parseInt(document.getElementById('fontSizeInput').value);
+        let textBoxHeight = parseInt(document.getElementById('font-size-input').value);
 
         // Clamp current textbox position to inside the visible canvas, while following the cursor
         if (currentText === 'text1') {
@@ -135,5 +134,4 @@ function dragText(e) {
 // Stop dragging, I mean it's kinda obvious
 function stopDrag() {
     isDragging = false;
-    console.log('stop dragging');
 }
